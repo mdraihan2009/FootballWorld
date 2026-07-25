@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Football World</title>
+
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/v3.css">
+
+</head>
+
+<script>
+
+if(!sessionStorage.getItem("splashShown")){
+
+sessionStorage.setItem("splashShown","true");
+
+window.location.replace("splash.html");
+
+}
+
+</script>
+
+</head>
+
+<body>
+
+<header>
+
+⚽ Football World
+
+</header>
+
+<div class="main-container">
+
+<!-- =========================
+V3 HERO SECTION
+========================= -->
+
+<section class="hero-v3">
+
+    <div class="hero-overlay">
+
+        <h1>⚽ Football World</h1>
+
+        <p>
+            Live Scores • Fixtures • News • Standings
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="live.html" class="hero-btn">
+                🔴 Watch Live
+            </a>
+
+            <a href="schedule.html" class="hero-btn secondary">
+                📅 Match Schedule
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =========================
+QUICK MENU
+========================= -->
+
+<section class="quick-grid">
+
+    <a href="live.html" class="quick-card">
+        🔴
+        <span>Live</span>
+    </a>
+
+    <a href="schedule.html" class="quick-card">
+        📅
+        <span>Schedule</span>
+    </a>
+
+    <a href="news.html" class="quick-card">
+        📰
+        <span>News</span>
+    </a>
+
+    <a href="standings.html" class="quick-card">
+        🏆
+        <span>Standings</span>
+    </a>
+
+</section>
+
+<!-- ===========================
+TRENDING MATCHES
+=========================== -->
+
+<section class="card">
+
+    <h2 class="section-title">🔥 Trending Matches</h2>
+
+    <div id="trendingMatches">
+
+        <div class="loading-card">
+            Loading Trending Matches...
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ===========================
+FEATURED LEAGUES
+=========================== -->
+
+<section class="card">
+
+<h2 class="section-title">🏆 Featured Leagues</h2>
+
+<div class="quick-grid">
+
+<a href="standings.html?league=39" class="quick-card">
+🏴
+<span>Premier League</span>
+</a>
+
+<a href="standings.html?league=140" class="quick-card">
+🇪🇸
+<span>La Liga</span>
+</a>
+
+<a href="standings.html?league=78" class="quick-card">
+🇩🇪
+<span>Bundesliga</span>
+</a>
+
+<a href="standings.html?league=135" class="quick-card">
+🇮🇹
+<span>Serie A</span>
+</a>
+
+</div>
+
+</section>
+
+<!-- ===========================
+TOP PLAYERS
+=========================== -->
+
+<section class="card">
+
+<h2 class="section-title">⭐ Top Players</h2>
+
+<div id="topPlayers" class="quick-grid">
+
+<div class="loading-card">
+
+<p>⭐ Loading Top Players...</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ===========================
+TODAY'S COMPETITIONS
+=========================== -->
+
+<section class="card">
+
+<h2 class="section-title">🏅 Today's Competitions</h2>
+
+<div class="match">
+    <h3>🏴 Premier League</h3>
+    <p>3 Matches Today</p>
+</div>
+
+<div class="match">
+    <h3>🇪🇸 La Liga</h3>
+    <p>4 Matches Today</p>
+</div>
+
+<div class="match">
+    <h3>🇩🇪 Bundesliga</h3>
+    <p>2 Matches Today</p>
+</div>
+
+<div class="match">
+    <h3>🇮🇹 Serie A</h3>
+    <p>5 Matches Today</p>
+</div>
+
+</section>
+
+<!-- ===========================
+LIVE MATCH
+=========================== -->
+
+<div class="card">
+
+<h2>🔴 LIVE MATCH</h2>
+
+<div id="homeLive">
+
+<div class="live-scoreboard">
+
+<div class="live-header" id="liveStatus">
+
+⏳ Loading Match...
+
+</div>
+
+<div class="live-teams">
+
+<div class="club">
+
+<img id="homeLogo" src="assets/logo.png">
+
+<p id="homeName">Home</p>
+
+</div>
+
+<div class="score-box" id="liveScore">
+
+0 - 0
+
+</div>
+
+<div class="club">
+
+<img id="awayLogo" src="assets/logo.png">
+
+<p id="awayName">Away</p>
+
+</div>
+
+</div>
+
+<div id="liveLeague"
+style="margin-top:12px;font-size:14px;color:#94a3b8;">
+League
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ===========================
+TODAY MATCHES
+=========================== -->
+
+<div class="card">
+
+<h2>
+
+📅 TODAY'S MATCHES
+
+</h2>
+
+<div id="homeSchedule">
+
+<p style="text-align:center;padding:20px;">
+
+Loading today's matches...
+
+</p>
+
+</div>
+
+</div>
+
+<!-- ===========================
+LATEST NEWS
+=========================== -->
+
+<div class="card">
+
+<h2>
+
+📰 Latest Football News
+
+</h2>
+
+<div id="homeNews">
+
+<p style="text-align:center;padding:20px;">
+
+Loading latest news...
+
+</p>
+
+</div>
+
+</div>
+<!-- ===========================
+FAVORITE TEAM
+=========================== -->
+
+<div class="card">
+
+<h2>⭐ My Favorite Team</h2>
+
+<div id="favoriteTeam" class="favorite-box">
+
+<p style="text-align:center;padding:20px;">
+
+⭐ No Favorite Team Selected
+
+</p>
+
+</div>
+
+</div>
+
+<!-- ===========================
+FAVORITE PLAYER
+=========================== -->
+
+<div class="card">
+
+<h2>⭐ My Favorite Player</h2>
+
+<div id="favoritePlayer" class="favorite-box">
+
+<p style="text-align:center;padding:20px;">
+
+⭐ No Favorite Player Selected
+
+</p>
+
+</div>
+
+</div>
+
+<!-- ===========================
+SEARCH TEAM
+=========================== -->
+
+<div class="card">
+
+<h2>🔍 Search Team</h2>
+
+<input
+type="text"
+id="teamSearch"
+placeholder="Search your favorite team...">
+
+<br><br>
+
+<button id="searchBtn">
+
+🔍 Search Team
+
+</button>
+
+<br><br>
+
+<div id="teamResult">
+
+<p style="text-align:center;">
+
+Search your favorite club
+
+</p>
+
+</div>
+
+</div>
+<!-- ===========================
+FOOTBALL CENTER
+=========================== -->
+
+<div class="card">
+
+<h2 style="text-align:center;">
+
+⚽ Football Center
+
+</h2>
+
+<p style="text-align:center;margin-bottom:20px;">
+
+Everything you need in one place
+
+</p>
+
+<div class="feature-grid">
+
+<!-- Standings -->
+
+<div class="feature-card"
+onclick="location.href='standings.html'">
+
+<div class="feature-icon">🏆</div>
+
+<h3>Standings</h3>
+
+<p>League Tables</p>
+
+</div>
+
+<!-- Top Scorers -->
+
+<div class="feature-card"
+onclick="location.href='topscorers.html'">
+
+<div class="feature-icon">⚽</div>
+
+<h3>Top Scorers</h3>
+
+<p>Golden Boot Race</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div style="height:90px;"></div>
+
+<!-- ===========================
+BOTTOM NAVIGATION
+=========================== -->
+
+<div class="bottom">
+
+<a href="index.html">
+
+🏠<br>
+
+Home
+
+</a>
+
+<a href="live.html">
+
+🔴<br>
+
+Live
+
+</a>
+
+<a href="schedule.html">
+
+📅<br>
+
+Schedule
+
+</a>
+
+<a href="news.html">
+
+📰<br>
+
+News
+
+</a>
+
+<a href="settings.html">
+
+⚙️<br>
+
+Settings
+
+</a>
+
+</div>
+
+<!-- ===========================
+JAVASCRIPT FILES
+=========================== -->
+
+<script src="js/api.js"></script>
+<script src="js/apiManager.js"></script>
+<script src="js/settings.js"></script>
+<script src="js/home.js"></script>
+<script src="js/favorite-player.js"></script>
+<script src="js/search-team.js"></script>
+<script src="js/v3.js"></script>
+<script type="module" src="js/firebase.js"></script>
+
+</body>
+
+</html>

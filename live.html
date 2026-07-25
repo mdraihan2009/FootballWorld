@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Football World - Live Matches</title>
+
+<link rel="stylesheet" href="CSS/style.css">
+</head>
+
+<body>
+
+<header class="page-header">
+
+    <div class="header-left">
+        🔴 Live Matches
+    </div>
+
+    <div class="header-right">
+        <span id="liveCount">0 Live</span>
+    </div>
+
+</header>
+
+<main class="live-container">
+
+    <section class="live-title">
+
+        <h2>⚽ Live Football Matches</h2>
+
+        <p>Follow every live score in real time.</p>
+
+    </section>
+
+    <div id="liveMatches">
+
+        <div class="loading-card">
+
+            <p>⏳ Loading live matches...</p>
+
+        </div>
+
+    </div>
+
+</main>
+
+<!-- Bottom Navigation -->
+
+<div class="bottom">
+
+    <a href="index.html">
+        🏠<br>Home
+    </a>
+
+    <a href="live.html" class="active">
+        🔴<br>Live
+    </a>
+
+    <a href="schedule.html">
+        📅<br>Schedule
+    </a>
+
+    <a href="news.html">
+        📰<br>News
+    </a>
+
+    <a href="settings.html">
+        ⚙️<br>Settings
+    </a>
+
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/apiManager.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/live.js"></script>
+
+</body>
+</html>

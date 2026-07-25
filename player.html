@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Football World - Player Details</title>
+
+<link rel="stylesheet" href="CSS/style.css">
+
+</head>
+
+<body>
+
+<header class="page-header">
+
+<div class="header-left">
+👤 Player Details
+</div>
+
+<div class="header-right">
+<span>Profile</span>
+</div>
+
+</header>
+
+<div style="padding:15px;">
+
+<button onclick="history.back()" class="hero-btn">
+⬅ Back
+</button>
+
+</div>
+
+<main class="live-container">
+
+<div class="card">
+
+<!-- ===========================
+PLAYER HERO
+=========================== -->
+
+<div class="player-hero">
+
+    <div class="player-cover">
+
+        <img id="playerHeroPhoto"
+             src="assets/default-player.png"
+             class="player-photo-large">
+
+        <h1 id="playerHeroName">
+            Player Name
+        </h1>
+
+        <p id="playerHeroClub">
+            Club Name
+        </p>
+
+    </div>
+
+</div>
+
+<div id="playerInfo">
+
+<div style="text-align:center;padding:15px;">
+
+<button id="favoriteBtn" class="hero-btn">
+
+⭐ Add To Favorite
+
+</button>
+
+</div>
+
+<div class="loading-card">
+
+<p>👤 Loading Player...</p>
+
+</div>
+
+</div>
+
+</div>
+
+</main>
+
+<div class="bottom">
+
+<a href="index.html">
+🏠<br>Home
+</a>
+
+<a href="live.html">
+🔴<br>Live
+</a>
+
+<a href="schedule.html">
+📅<br>Schedule
+</a>
+
+<a href="news.html">
+📰<br>News
+</a>
+
+<a href="settings.html">
+⚙️<br>Settings
+</a>
+
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/apiManager.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/player.js"></script>
+
+</body>
+
+</html>

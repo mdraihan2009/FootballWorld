@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Football World - Settings</title>
+
+<link rel="stylesheet" href="CSS/style.css">
+
+</head>
+
+<body>
+
+<header class="page-header">
+
+<div class="header-left">
+⚙️ Settings
+</div>
+
+<div class="header-right">
+Football World
+</div>
+
+</header>
+
+<main class="live-container">
+
+<div class="card">
+
+<h2 class="section-title" style="text-align:center;">
+⚙️ Settings
+</h2>
+
+<p style="
+text-align:center;
+color:#94a3b8;
+margin-bottom:20px;
+">
+Customize your Football World Experience
+</p>
+
+<div class="stats-grid">
+
+<div class="stat-box" onclick="toggleLanguage()">
+
+🌐
+
+<br><b>Language</b>
+
+<br>
+<span id="languageText">English</span>
+
+</div>
+
+<div class="stat-box" onclick="toggleTheme()">
+
+🎨
+
+<br><b>Theme</b>
+
+<br>
+<span id="themeText">Dark</span>
+
+</div>
+
+<div class="stat-box" onclick="location.href='favorite.html'">
+
+⭐
+
+<br><b>Favorites</b>
+
+<br>Players & Teams
+
+</div>
+
+<div class="stat-box" onclick="toggleNotification()">
+
+🔔
+
+<br><b>Notification</b>
+
+<br>
+<span id="notifyText">ON</span>
+
+</div>
+
+</div>
+
+<hr style="margin:25px 0;">
+<button class="hero-btn" onclick="location.href='about.html'">
+ℹ️ About App
+</button>
+
+<br><br>
+
+<button class="hero-btn" onclick="location.href='privacy.html'">
+🔒 Privacy Policy
+</button>
+
+<br><br>
+
+<button class="hero-btn" onclick="shareApp()">
+📤 Share App
+</button>
+
+<br><br>
+
+<button class="hero-btn" onclick="rateApp()">
+⭐ Rate App
+</button>
+
+<br><br>
+
+<button class="hero-btn" onclick="clearAppCache()">
+🗑 Clear Cache
+</button>
+
+<br><br>
+
+<button class="hero-btn" onclick="location.href='contact.html'">
+👨‍💻 Contact Developer
+</button>
+
+<hr style="margin:25px 0;">
+
+<div style="text-align:center;color:#94a3b8;">
+
+<h3>Football World</h3>
+
+<p>Version 1.0.0</p>
+
+<p>Developed by Md Raihan</p>
+
+</div>
+</div>
+
+</main>
+
+<div class="bottom">
+
+<a href="index.html">
+🏠<br>Home
+</a>
+
+<a href="live.html">
+🔴<br>Live
+</a>
+
+<a href="schedule.html">
+📅<br>Schedule
+</a>
+
+<a href="news.html">
+📰<br>News
+</a>
+
+<a href="settings.html" class="active">
+⚙️<br>Settings
+</a>
+
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/apiManager.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/settings.js"></script>
+
+</body>
+</html>

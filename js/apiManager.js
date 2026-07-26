@@ -1,67 +1,34 @@
-// ===============================
-// Football World API Manager V6
-// Performance Optimized
-// ===============================
+// =====================================
+// Football World API Manager V8
+// =====================================
 
-const API_CACHE_TIME = 5 * 60 * 1000; // 5 Minutes
+const API_CACHE_TIME = 5 * 60 * 1000;
 
-// ===============================
-// API FOOTBALL
-// ===============================
+// ---------------------
+// Cache
+// ---------------------
 
-async function fetchApiFootball(endpoint){
+function getCache(key) {
 
-    const cacheKey = "fw_" + endpoint;
+    try {
 
-    const cached = localStorage.getItem(cacheKey);
+        const cache = localStorage.getItem(key);
 
-    if(cached){
+        if (!cache) return null;
 
-        const cacheData = JSON.parse(cached);
+        const item = JSON.parse(cache);
 
-        if(Date.now() - cacheData.time < API_CACHE_TIME){
+        if (Date.now() - item.time > API_CACHE_TIME) {
 
-            console.log("⚡ API Cache Used");
+            localStorage.removeItem(key);
 
-            return cacheData.data;
-
-        }
-
-    }
-
-    try{
-
-        const response = await fetch(API_URL + endpoint,{
-
-            method:"GET",
-
-            headers:{
-                "x-apisports-key":API_KEY
-            }
-
-        });
-
-        if(!response.ok){
-
-            throw new Error("API Error");
+            return null;
 
         }
 
-        const data = await response.json();
+        return item.data;
 
-        localStorage.setItem(cacheKey,JSON.stringify({
-
-            time:Date.now(),
-
-            data:data
-
-        }));
-
-        return data;
-
-    }catch(error){
-
-        console.log(error);
+    } catch (e) {
 
         return null;
 
@@ -69,35 +36,141 @@ async function fetchApiFootball(endpoint){
 
 }
 
-// ===============================
-// GNEWS
-// ===============================
+function saveCache(key, data) {
 
-async function fetchNews(endpoint){
+    localStorage.setItem(
 
-    const cacheKey = "news_" + endpoint;
+        key,
 
-    const cached = localStorage.getItem(cacheKey);
+        JSON.stringify({
 
-    if(cached){
+            time: Date.now(),
 
-        const cacheData = JSON.parse(cached);
+            data: data
 
-        if(Date.now() - cacheData.time < API_CACHE_TIME){
+        })
 
-            console.log("⚡ News Cache Used");
+    );
 
-            return cacheData.data;
+}
+// ---------------------
+// API Football
+// ---------------------
 
-        }
+async function fetchApiFootball(endpoint) {
+
+    const cacheKey = "fw_" + endpoint;
+
+    const cached = getCache(cacheKey);
+
+    if (cached) {
+
+        return {
+
+            success: true,
+
+            data: cached
+
+        };
 
     }
 
-    try{
+    try {
 
-        const response = await fetch(GNEWS_API_URL + endpoint);
+        const response = await fetch(
 
-        if(!response.ok){
+            API_URL + "/" + endpoint,
+
+            {
+
+                method: "GET",
+
+                headers: {
+
+                    "x-apisports-key": API_KEY
+
+                }
+
+            }
+
+        );
+
+        if (!response.ok) {
+
+            throw new Error("API Error");
+
+        }
+
+        const data = await response.json();
+
+        if (data.errors && data.errors.requests) {
+
+            return {
+
+                success: false,
+
+                error: "LIMIT"
+
+            };
+
+        }
+
+        saveCache(cacheKey, data);
+
+        return {
+
+            success: true,
+
+            data: data
+
+        };
+
+    } catch (error) {
+
+        console.log(error);
+
+        return {
+
+            success: false,
+
+            error: "NETWORK"
+
+        };
+
+    }
+
+}
+// ---------------------
+// GNews API
+// ---------------------
+
+async function fetchNews(endpoint) {
+
+    const cacheKey = "news_" + endpoint;
+
+    const cached = getCache(cacheKey);
+
+    if (cached) {
+
+        return {
+
+            success: true,
+
+            data: cached
+
+        };
+
+    }
+
+    try {
+
+        const response = await fetch(
+
+            GNEWS_API_URL + endpoint
+
+        );
+
+        if (!response.ok) {
 
             throw new Error("News API Error");
 
@@ -105,22 +178,60 @@ async function fetchNews(endpoint){
 
         const data = await response.json();
 
-        localStorage.setItem(cacheKey,JSON.stringify({
+        saveCache(cacheKey, data);
 
-            time:Date.now(),
+        return {
 
-            data:data
+            success: true,
 
-        }));
+            data: data
 
-        return data;
+        };
 
-    }catch(error){
+    } catch (error) {
 
         console.log(error);
 
-        return null;
+        return {
+
+            success: false,
+
+            error: "NETWORK"
+
+        };
 
     }
 
+}
+
+// ---------------------
+// Helper Functions
+// ---------------------
+
+async function getLiveMatches() {
+    return await fetchApiFootball("fixtures?live=all");
+}
+
+async function getNextMatches() {
+    return await fetchApiFootball("fixtures?next=5");
+}
+
+async function getStandings(league, season = 2025) {
+    return await fetchApiFootball(`standings?league=${league}&season=${season}`);
+}
+
+async function getTopScorers(league = 39, season = 2025) {
+    return await fetchApiFootball(`players/topscorers?league=${league}&season=${season}`);
+}
+
+async function searchTeam(name) {
+    return await fetchApiFootball(`teams?search=${encodeURIComponent(name)}`);
+}
+
+async function getTeamPlayers(teamId, season = 2025) {
+    return await fetchApiFootball(`players?team=${teamId}&season=${season}`);
+}
+
+async function getTeamInfo(teamId) {
+    return await fetchApiFootball(`teams?id=${teamId}`);
 }

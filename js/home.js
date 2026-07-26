@@ -96,15 +96,25 @@ async function loadHomeNews() {
 
   try {
 
-    const response = await fetch(
-      "https://gnews.io/api/v4/search?q=football&lang=en&max=3&apikey=8fbf97457cf8e15563768fa237e8b663"
-    );
+const response = await fetch(
+`${GNEWS_API_URL}/search?q=football&lang=en&max=3&apikey=${GNEWS_API_KEY}`
+);
 
-    const data = await response.json();
+const data = await response.json();
 
-    homeNews.innerHTML = "";
+homeNews.innerHTML = "";
 
-    data.articles.forEach(article => {
+if (!data.articles || data.articles.length === 0) {
+
+    homeNews.innerHTML = `
+    <p>No News Available</p>
+    `;
+
+    return;
+
+}
+
+data.articles.forEach(article => {
 
       homeNews.innerHTML += `
       <div class="match">

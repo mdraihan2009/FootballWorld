@@ -11,7 +11,7 @@ newsContainer.innerHTML = `
 try{
 
 const response = await fetch(
-"https://gnews.io/api/v4/search?q=football&lang=en&max=10&apikey=8fbf97457cf8e15563768fa237e8b663"
+`${GNEWS_API_URL}/search?q=football&lang=en&max=10&apikey=${GNEWS_API_KEY}`
 );
 
 const data = await response.json();
@@ -107,18 +107,17 @@ JSON.stringify(data.articles)
 
 }catch(error){
 
+console.log(error);
+
 newsContainer.innerHTML=`
 <div class="loading-card">
 <h2>❌ Failed to Load News</h2>
-<p>Please check your internet connection.</p>
+<p>${error.message}</p>
 </div>
 `;
 
-console.log(error);
-
 }
 
-}
 
 function openNews(index){
 

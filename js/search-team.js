@@ -1,6 +1,6 @@
-// ===============================
-// Football World - Search Team
-// ===============================
+// ====================================
+// Football World - Search Team V2
+// ====================================
 
 const searchBtn = document.getElementById("searchBtn");
 const teamSearch = document.getElementById("teamSearch");
@@ -8,165 +8,103 @@ const teamResult = document.getElementById("teamResult");
 
 let selectedTeam = null;
 
-searchBtn.onclick = async function () {
+searchBtn.addEventListener("click", async () => {
 
-    const team = teamSearch.value.trim();
+    const keyword = teamSearch.value.trim();
 
-    if (team === "") {
+    if (!keyword) {
 
         teamResult.innerHTML = `
         <div class="card" style="text-align:center;">
             <h3>⚠️ Please enter a team name</h3>
         </div>
         `;
+
         return;
 
     }
 
     teamResult.innerHTML = `
     <div class="card" style="text-align:center;">
-        <p>🔍 Searching Team...</p>
+        🔍 Searching Team...
     </div>
     `;
 
-    try {
+    const result = await searchTeam(keyword);
 
-const result = await fetchApiFootball(
-    `teams?search=${encodeURIComponent(team)}`
-);
+    if (!result.success) {
 
-if(!result.success){
-
-    if(result.error === "LIMIT"){
-
-        teamResult.innerHTML = `
-        <div class="card" style="text-align:center;">
-
-            <h2>⚠️ Daily API Limit Reached</h2>
-
-            <p>Please try again tomorrow.</p>
-
-        </div>
-        `;
-
-    }else{
-
-        teamResult.innerHTML = `
-        <div class="card" style="text-align:center;">
-
-            <h2>📡 No Internet</h2>
-
-            <p>Please check your internet connection.</p>
-
-        </div>
-        `;
-
-    }
-
-    return;
-
-}
-
-const data = result.data;
-
-if (!data.response || data.response.length === 0) {
-
-    teamResult.innerHTML = `
-    <div class="card" style="text-align:center;">
-
-        <h2>❌ Team Not Found</h2>
-
-        <p>Please check the spelling.</p>
-
-    </div>
-    `;
-
-    return;
-
-}
-
-// ===============================
-// API Daily Limit Check
-// ===============================
-
-if (data.errors && data.errors.requests) {
-
-    teamResult.innerHTML = `
-    <div class="card" style="text-align:center;">
-
-        <h2>⚠️ Daily API Limit Reached</h2>
-
-        <p>Please try again tomorrow.</p>
-
-    </div>
-    `;
-
-    return;
-
-}
-        if (!data.response || data.response.length === 0) {
+        if (result.error === "LIMIT") {
 
             teamResult.innerHTML = `
             <div class="card" style="text-align:center;">
-
-            <h2>❌ Team Not Found</h2>
-
-            <p>Please check the spelling.</p>
-
+            <h2>⚠️ API Daily Limit Reached</h2>
             </div>
             `;
 
-            return;
+        } else {
+
+            teamResult.innerHTML = `
+            <div class="card" style="text-align:center;">
+            <h2>📡 Connection Failed</h2>
+            </div>
+            `;
 
         }
 
-        const t = data.response[0].team;
-
-        selectedTeam = t;
-
-        teamResult.innerHTML = `
-
-        <div class="match">
-
-        <div style="text-align:center;">
-
-        <img src="${t.logo}" width="90">
-
-        <h2>${t.name}</h2>
-
-        <p>🌍 ${t.country}</p>
-
-        <br>
-
-        <button onclick="saveFavoriteTeam()">
-
-        ⭐ Set Favorite Team
-
-        </button>
-
-        </div>
-
-        </div>
-
-        `;
-
-    } catch (error) {
-
-        console.log(error);
-
-        teamResult.innerHTML = `
-        <div class="card" style="text-align:center;">
-
-        <h2>📡 No Internet</h2>
-
-        <p>Please check your internet connection.</p>
-
-        </div>
-        `;
+        return;
 
     }
 
-};
+    const data = result.data;
+        if (!data.response || data.response.length === 0) {
+
+        teamResult.innerHTML = `
+        <div class="card" style="text-align:center;">
+            <h2>❌ Team Not Found</h2>
+            <p>Please check the spelling.</p>
+        </div>
+        `;
+
+        return;
+
+    }
+
+    const team = data.response[0].team;
+
+    selectedTeam = team;
+
+    teamResult.innerHTML = `
+
+    <div class="match">
+
+        <div style="text-align:center;">
+
+            <img src="${team.logo}" width="90">
+
+            <h2>${team.name}</h2>
+
+            <p>🌍 ${team.country}</p>
+
+            <br>
+
+            <button id="saveTeamBtn">
+
+                ⭐ Set Favorite Team
+
+            </button>
+
+        </div>
+
+    </div>
+
+    `;
+
+    document
+        .getElementById("saveTeamBtn")
+        .addEventListener("click", saveFavoriteTeam);
+
+});
 
 function saveFavoriteTeam() {
 
@@ -177,7 +115,7 @@ function saveFavoriteTeam() {
     localStorage.setItem("favoriteTeamLogo", selectedTeam.logo);
     localStorage.setItem("favoriteCountry", selectedTeam.country);
 
-    alert("✅ Favorite Team Saved!");
+    alert("✅ Favorite Team Saved");
 
     location.reload();
 

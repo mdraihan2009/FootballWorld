@@ -171,7 +171,9 @@ function openTopPlayer(id){
 
 }
 
-loadTopPlayers();
+document.addEventListener("DOMContentLoaded", () => {
+    loadTopPlayers();
+});
 
 // ==========================================
 // PART 3 - Favorite Team Card

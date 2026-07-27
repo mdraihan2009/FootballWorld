@@ -85,11 +85,10 @@ async function fetchApiFootball(endpoint) {
 
                 method: "GET",
 
-                headers: {
-
-                    "x-apisports-key": API_KEY
-
-                }
+headers: {
+    "x-apisports-key": API_KEY,
+    "x-apisports-host": "v3.football.api-sports.io"
+}
 
             }
 
@@ -168,15 +167,14 @@ const response = await fetch(
     `${GNEWS_API_URL}/${endpoint}`
 );
 
-        );
-
         if (!response.ok) {
 
             throw new Error("News API Error");
 
         }
 
-        const data = await response.json();
+const data = await response.json();
+console.log("API Response:", data);
 
         saveCache(cacheKey, data);
 

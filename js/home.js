@@ -13,7 +13,10 @@ if (!liveResult.success) {
 }
 
 const liveData = liveResult.data;
-    if (liveData.response.length > 0) {
+    if (!liveData.response) {
+    homeLive.innerHTML = "<p>No Live Match Data</p>";
+    return;
+}
 
       const match = liveData.response[0];
 
@@ -62,6 +65,11 @@ if (!todayResult.success) {
 }
 
 const todayData = todayResult.data;
+
+if (!todayData.response) {
+    homeSchedule.innerHTML = "<p>No Match Data</p>";
+    return;
+}
 
     homeSchedule.innerHTML = "";
 

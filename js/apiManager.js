@@ -164,9 +164,9 @@ async function fetchNews(endpoint) {
 
     try {
 
-        const response = await fetch(
-
-            GNEWS_API_URL + endpoint
+const response = await fetch(
+    `${GNEWS_API_URL}/${endpoint}`
+);
 
         );
 

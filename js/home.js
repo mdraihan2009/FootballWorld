@@ -5,17 +5,14 @@ async function loadHome() {
   try {
 
     // Live Match
-    const liveRes = await fetch(
-      "https://v3.football.api-sports.io/fixtures?live=all",
-      {
-        headers: {
-          "x-apisports-key": API_KEY
-        }
-      }
-    );
+const liveResult = await getLiveMatches();
 
-    const liveData = await liveRes.json();
+if (!liveResult.success) {
+    homeLive.innerHTML = "<p>Live Match Loading Failed</p>";
+    return;
+}
 
+const liveData = liveResult.data;
     if (liveData.response.length > 0) {
 
       const match = liveData.response[0];
@@ -57,16 +54,14 @@ async function loadHome() {
     }
 
     // Today's Matches
-    const todayRes = await fetch(
-      "https://v3.football.api-sports.io/fixtures?next=5",
-      {
-        headers: {
-          "x-apisports-key": API_KEY
-        }
-      }
-    );
+const todayResult = await getNextMatches();
 
-    const todayData = await todayRes.json();
+if (!todayResult.success) {
+    homeSchedule.innerHTML = "<p>Today's Matches Loading Failed</p>";
+    return;
+}
+
+const todayData = todayResult.data;
 
     homeSchedule.innerHTML = "";
 

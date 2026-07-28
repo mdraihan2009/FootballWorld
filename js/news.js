@@ -114,17 +114,12 @@ newsContainer.innerHTML=`
 <h2>❌ Failed to Load News</h2>
 <p>${error.message}</p>
 </div>
-`;
 
 }
 
-
-function openNews(index){
-
-localStorage.setItem("newsIndex",index);
-
-location.href="news-details.html";
-
+function openNews(index) {
+    localStorage.setItem("newsIndex", index);
+    location.href = "news-details.html";
 }
 
 loadNews();

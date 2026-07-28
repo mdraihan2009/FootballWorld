@@ -20,16 +20,18 @@ async function loadTopScorers() {
 
     try {
 
-        const response = await fetch(
-            `https://v3.football.api-sports.io/players/topscorers?league=${league}&season=2024`,
-            {
-                headers: {
-                    "x-apisports-key": API_KEY
-                }
-            }
-        );
+const result = await getTopScorers(league, 2025);
 
-        const data = await response.json();
+if (!result.success) {
+    scorersResult.innerHTML = `
+    <div class="card" style="text-align:center;">
+        <h2>📡 Failed to Load</h2>
+    </div>
+    `;
+    return;
+}
+
+const data = result.data;
 
         if (!data.response || data.response.length === 0) {
 

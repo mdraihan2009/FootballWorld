@@ -13,12 +13,43 @@ if (!liveResult.success) {
 }
 
 const liveData = liveResult.data;
-    if (!liveData.response) {
-    homeLive.innerHTML = "<p>No Live Match Data</p>";
-    return;
-}
 
-      const match = liveData.response[0];
+if (!liveData.response || liveData.response.length === 0) {
+    homeLive.innerHTML = "<p>No Live Match</p>";
+} else {
+
+    const match = liveData.response[0];
+
+    homeLive.innerHTML = `
+    <div class="match">
+
+    <div class="team">
+
+    <div class="club">
+    <img src="${match.teams.home.logo}">
+    <span>${match.teams.home.name}</span>
+    </div>
+
+    <div class="vs">VS</div>
+
+    <div class="club">
+    <img src="${match.teams.away.logo}">
+    <span>${match.teams.away.name}</span>
+    </div>
+
+    </div>
+
+    <div class="score">
+    ${match.goals.home} - ${match.goals.away}
+    </div>
+
+    <div class="time">
+    🔴 ${match.fixture.status.elapsed}'
+    </div>
+
+    </div>
+    `;
+}
 
       homeLive.innerHTML = `
       <div class="match">

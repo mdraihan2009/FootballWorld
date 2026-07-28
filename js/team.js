@@ -158,16 +158,18 @@ playerList.innerHTML = `
 
     try {
 
-        const response = await fetch(
-            `https://v3.football.api-sports.io/players/squads?team=${teamId}`,
-            {
-                headers: {
-                    "x-apisports-key": API_KEY
-                }
-            }
-        );
+const result = await fetchApiFootball(`players/squads?team=${teamId}`);
 
-        const data = await response.json();
+if (!result.success) {
+    playerList.innerHTML = `
+    <div class="loading-card">
+        <h2>📡 Failed to Load Players</h2>
+    </div>
+    `;
+    return;
+}
+
+const data = result.data;
 
         if (!data.response || data.response.length === 0) {
 

@@ -56,6 +56,17 @@ searchBtn.addEventListener("click", async () => {
 
     }
 
+if (!result.success) {
+
+    teamResult.innerHTML = `
+    <div class="card" style="text-align:center;">
+        <h2>📡 Connection Failed</h2>
+    </div>
+    `;
+
+    return;
+}
+
     const data = result.data;
         if (!data.response || data.response.length === 0) {
 

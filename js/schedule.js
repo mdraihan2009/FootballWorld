@@ -10,11 +10,18 @@ async function getMatches() {
 
     try {
 
-        const data = await fetchApiFootball("/fixtures?next=20");
+const result = await fetchApiFootball("fixtures?next=20");
 
-        scheduleContainer.innerHTML = "";
+scheduleContainer.innerHTML = "";
 
-        if (!data || !data.response || data.response.length === 0) {
+if (!result.success) {
+    showError(scheduleContainer, "Failed to load schedule.");
+    return;
+}
+
+const data = result.data;
+
+if (!data.response || data.response.length === 0) {
 
             scheduleContainer.innerHTML = `
             <div class="card" style="text-align:center;padding:30px;">

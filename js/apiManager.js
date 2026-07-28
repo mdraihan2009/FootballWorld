@@ -174,6 +174,10 @@ const response = await fetch(
         }
 
 const data = await response.json();
+
+console.log("Endpoint:", endpoint);
+console.log("API Response:", data);
+
 console.log("API Response:", data);
 
         saveCache(cacheKey, data);

@@ -198,3 +198,12 @@ function loadFavoriteTeam(){
     }else{
 
         favName.innerText = "No Favorite Team";
+            favLogo.src = "assets/default-team.png";
+
+}
+
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    loadFavoriteTeam();
+});
